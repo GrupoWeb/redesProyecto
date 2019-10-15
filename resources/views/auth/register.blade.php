@@ -1,0 +1,79 @@
+@extends('layouts.master_login')
+@section('content')
+
+<body class="hold-transition register-page">
+  <div class="register-box">
+    <div class="register-logo">
+        <img  class="img-rounded" src="{{ asset('imgRedes/registro.png') }}" alt="" >
+    </div>
+
+    <div class="card">
+      <div class="card-body register-card-body">
+{{--        <p class="login-box-msg">{{ __('Register') }}</p>--}}
+
+        <form action="{{ route('register') }}" method="post">
+          @csrf
+          <div class="input-group mb-3">
+            <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" placeholder="Ingrese su nombre"
+              required autofocus> @if ($errors->has('name'))
+            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span> @endif
+            <div class="input-group-append">
+              <span class="fa fa-user input-group-text"></span>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input id="email" type="email" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Your E Mail Address">
+            <div class="input-group-append">
+              <span class="fa fa-envelope input-group-text"></span> @if ($errors->has('email'))
+              <span class="invalid-feedback" role="alert">
+                      <strong>{{ $errors->first('email') }}</strong>
+                  </span> @endif
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password" required>
+            <div class="input-group-append">
+              <span class="fa fa-lock input-group-text"></span>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirmar Password" required>
+            <div class="input-group-append">
+              <span class="fa fa-lock input-group-text"></span> @if ($errors->has('password'))
+              <span class="invalid-feedback" role="alert">
+                      <strong>{{ $errors->first('password') }}</strong>
+                  </span> @endif
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" class="btn btn-primary btn-lg note-btn-block ">Registrar</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+{{-- 
+        <div class="social-auth-links text-center">
+          <p>- OR -</p>
+          <a href="#" class="btn btn-block btn-primary">
+              <i class="fab fa-facebook-f mr-2"></i>
+              Sign up using Facebook
+            </a>
+          <a href="#" class="btn btn-block btn-danger">
+              <i class="fab fa-google-plus-g mr-2"></i>
+              Sign up using Google+
+            </a>
+        </div> --}}
+
+          <div class="row">
+              <a href="{{route('login')}}" class="btn btn-danger btn-sm text-center">Ya tengo una cuenta</a>
+          </div>
+      </div>
+      <!-- /.form-box -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.register-box -->
+@endsection
