@@ -1,37 +1,60 @@
 <template>
   <div class="container">
-    <el-row :gutter="20">
-      <el-col :span="18" type="flex">
-        <el-card :body-style="{ margin:'10px'}">
+    <!-- <el-row :gutter="20">
+      <el-col :span="18" > -->
+        
+        <el-card :body-style="{ margin:'10px'}" >
           <div slot="header" class="clearfix">
             <span>Sala de Chat</span>
           </div>
           <div class="text item">
-            <el-form label-width="120px">
-              <el-form-item label="Mensajes:">
-                <div class="chat">
-                  <div class="chatbox" v-for="(chat, ch) of Message" :key="ch">
-                    <div v-if="chat.user_id ===  user" class="mine messages">
-                      <div class="message last"><span class="userData_last">{{ chat.name }}</span>{{ chat.message}}</div>
+            <el-row :gutter="20">
+              <el-col :span="16">
+                <el-form label-width="120px" >
+                  <el-form-item label="Mensajes:">
+                    <div class="chat" >
+                      <div class="chatbox" v-for="(chat, ch) of Message" :key="ch"  >
+                          <!-- <ul class="list-unstyled" v-for="(chat, ch) of Message" :key="ch">
+                            <li v-if="chat.user_id ===  user" class="p-2 mine messages">{{ chat.message }}</li>
+                          </ul> -->
+                            <div v-if="chat.user_id ===  user" class="mine messages">
+                              <div class="message last"><span class="userData_last">{{ chat.name }}</span>{{ chat.message}}</div>
+                            </div>
+                            <div v-else class="yours messages">
+                              <div class="message"><span class="userData">{{ chat.name }}</span>{{ chat.message}}</div>
+                            </div>
+                      </div>
                     </div>
-                    <div v-else class="yours messages">
-                      <div class="message"><span class="userData">{{ chat.name }}</span>{{ chat.message}}</div>
+                  </el-form-item>
+                  <el-form-item >
+                    <el-input type="textarea" name="anotacion" v-model="textarea"></el-input>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button type="primary" @click="onSubmit"><i class="el-icon-s-promotion"></i></el-button>
+                    <!-- <el-button>Cancel</el-button> -->
+                  </el-form-item>
+                </el-form>
+              </el-col>
+              <el-col :span="8">
+                  <div class="card card-default">
+                    <div class="card-header">
+                      Usuarios Conectados:
+                    </div>
+                    <div class="card-body">
+                      <ul>
+                        <li class="p-2">jose</li>
+                      </ul>
                     </div>
                   </div>
-                </div>
-              </el-form-item>
-              <el-form-item label="Anotaciones:">
-                <el-input type="textarea" name="anotacion" v-model="textarea"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="onSubmit">Documentar</el-button>
-                <el-button>Cancel</el-button>
-              </el-form-item>
-            </el-form>
+              </el-col>
+            </el-row>
+              
           </div>
         </el-card>
-      </el-col>
-    </el-row>
+        
+      <!-- </el-col>
+
+    </el-row> -->
   </div>
 </template>
 
@@ -78,6 +101,8 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
+  height:420px;
+  overflow-y:scroll
 }
 
 .message {
@@ -197,47 +222,46 @@ export default {
       id_enviado:1
     };
   },
-  mounted() {
-    // invocar los métodos
-    // this.getResponsables();
-    // console.log(this.id);
-     this.getChat();
-    // this.getFile();
-    setInterval(() => {
-      this.getChat();
-    }, 1000);
+  // mounted() {
+  //    this.getChat();
+  //   setInterval(() => {
+  //     this.getChat();
+  //   }, 1000);
+  // },
+  created(){
+    this.getChat();
+
+    Echo.join('chat')
+            .listen('MessageSent', (event) => {
+                this.Message.push(event.message);
+            });
   },
   methods: {
-    llenado: function() {
-      
-      axios
-        .get("/searchEvento/" + this.id)
-        .then(response => {
-          // handle success
-          this.DataResult = response.data;
-          //console.log(response.data);
-          //this.total= response.data;
-          //console.log(this.DataResult);
-        })
-        .catch(function(error) {
-          // handle error
-          console.log(error);
-        })
-        .finally(function() {
-          // always executed
-        });
-    },
-    getResponsables: function() {
-      axios
-        .get("/getDataRes")
-        .then(response => {
-          this.Responsables = response.data;
-          //console.log(response.data);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
+    // llenado: function() {
+    //   axios
+    //     .get("/searchEvento/" + this.id)
+    //     .then(response => {
+    //       this.DataResult = response.data;
+    //     })
+    //     .catch(function(error) {
+    //       // handle error
+    //       console.log(error);
+    //     })
+    //     .finally(function() {
+    //       // always executed
+    //     });
+    // },
+    // getResponsables: function() {
+    //   axios
+    //     .get("/getDataRes")
+    //     .then(response => {
+    //       this.Responsables = response.data;
+    //       //console.log(response.data);
+    //     })
+    //     .catch(function(error) {
+    //       console.log(error);
+    //     });
+    // },
     getChat:  function() {
       axios
         .get("/getChat")
@@ -260,18 +284,18 @@ export default {
         });
     }
     ,
-    async onSubmit() {
-      let anotacion;
-      anotacion = this.textarea;
+     onSubmit() {
+
+       this.Message.push({
+         message: this.textarea 
+       });
       var url = "/addMessages";
        axios
         .post(url, {
-          message: this.textarea,
-          id_user: this.user,
-          id_evento: 1
+          message: this.textarea
         })
         .then(response => {
-            await this.getChat();
+             this.getChat();
             this.textarea = "";
           // console.log("guardado");
         })

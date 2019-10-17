@@ -57,7 +57,7 @@ Route::group(['middleware' => 'cors'], function(){
 
     //----Mensajes------
     Route::get('getChat','EventosController@getMessages');
-    Route::post('addMessages','EventosController@addMessageData');
+    Route::post('addMessages','EventosController@addMessageData'); 
 
     Route::post('upload','UploadController@store');
     Route::post('Uploadfile','EventosController@uploadfile');

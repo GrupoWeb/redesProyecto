@@ -13,7 +13,8 @@
             </div>
           </div>
         </div>
-        <div class="container-fluid col-11 col-lg-11 col-sm-11 col-xl-11">
+        <div class="containercol-8 col-lg-8 col-sm-11 col-xl-11">
             <chat-component></chat-component>  
         </div>
+     
     </div>

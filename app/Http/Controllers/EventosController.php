@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\messages;
 use App\Upload;
+use App\Events\MessageSent;
 
 class EventosController extends Controller
 {
@@ -119,8 +120,7 @@ class EventosController extends Controller
 
         $mensaje = DB::table('messages')
                         ->join('users','users.id','=','messages.user_id')
-                        ->select('messages.id','messages.message','messages.user_id','messages.evento_id','users.name')
-                        ->where('messages.evento_id','=',1)
+                        ->select('messages.id','messages.message','messages.user_id','users.name')
                         ->get();
         
         // $message = messages::all();
@@ -129,13 +129,24 @@ class EventosController extends Controller
     }
 
     public function addMessageData(Request $request){
-        $Mensajes = new messages;
 
-        $Mensajes->message = $request->message;
-        $Mensajes->user_id = $request->id_user;
-        $Mensajes->evento_id = $request->id_evento;
+    //    dd($request);
+        $message = auth()->user()->messages()->create([
+            'message' => $request->message
+        ]);
+        broadcast(new MessageSent($message->load('user')))->toOthers();
+        return ['status' => 'success'];
 
-        $Mensajes->save();
+
+        // $Mensajes = new messages;
+
+        // $Mensajes->message = $request->message;
+        // $Mensajes->user_id = $request->id_user;
+        // $Mensajes->evento_id = $request->id_evento;
+
+        // $Mensajes->save();
+
+        // broadcast(new MessageSent($Mensajes));
     }
 
     public function uploadfile(Request $request){

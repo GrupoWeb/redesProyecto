@@ -34,4 +34,8 @@ class User extends Authenticatable
      * @return \Illuminate\Http\Response
      */
     
+
+     public function messages(){
+        return $this->hasMany(messages::class);
+     }
 }

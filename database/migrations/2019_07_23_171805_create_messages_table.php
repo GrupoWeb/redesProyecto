@@ -17,7 +17,6 @@ class CreateMessagesTable extends Migration
             $table->increments('id');
             $table->text('message');
             $table->integer('user_id');
-            $table->integer('evento_id');
             $table->timestamps();
         });
     }
