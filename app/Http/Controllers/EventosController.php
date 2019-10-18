@@ -125,7 +125,13 @@ class EventosController extends Controller
         
         // $message = messages::all();
 
+        ;
+
+        // dd(encrypt($mensaje));
+        
+
         return response()->json($mensaje,200);
+        // return response()->json(base64_encode($mensaje),200);
     }
 
     public function addMessageData(Request $request){

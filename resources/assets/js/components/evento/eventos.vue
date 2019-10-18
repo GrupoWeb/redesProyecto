@@ -56,13 +56,13 @@ export default {
     };
   },
   mounted() {
-    this.getData();
-    this.getResponsable();
-    this.Calcular();
-    setInterval(() => {
-      this.getData();
-      this.getResponsable();
-    }, 3000);
+    // this.getData();
+    // this.getResponsable();
+    // this.Calcular();
+    // setInterval(() => {
+    //   this.getData();
+    //   this.getResponsable();
+    // }, 3000);
   },
   observable() {
     this.DataResult;

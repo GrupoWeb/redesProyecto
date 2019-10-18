@@ -25,3 +25,11 @@ Create a database and inform .env
 # https://github.com/maddhatter/laravel-fullcalendar
 
 # https://packagist.org/packages/eternicode/bootstrap-datepicker
+
+
+https://medium.com/@jeffrey.allen.lewis/http-requests-compared-why-axios-is-better-than-node-fetch-more-secure-can-handle-errors-better-39fde869a4a6
+
+
+https://codar.club/blogs/how-to-use-axios-request-interception-in-vue.html
+
+https://stefanzweifel.io/posts/code-experiment-end-to-end-encrypted-diary-app/

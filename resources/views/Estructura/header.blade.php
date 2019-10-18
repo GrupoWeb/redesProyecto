@@ -14,7 +14,7 @@
                 <a href="logout" class="nav-link">Cerrar Sesión</a>
             </li>
             <li>
-                <notificacion-component></notificacion-component>
+                {{-- <notificacion-component></notificacion-component> --}}
             </li>
         </ul>
     </nav>

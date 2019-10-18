@@ -48,7 +48,12 @@ Route::group(['middleware' => 'cors'], function(){
     Route::get('editMensaje/{id}','EventosController@edit');
     Route::get('chat/{id}','EventosController@chat');
 
-    Route::get('chatOnline','EventosController@salaChat');
+
+
+
+    Route::get('chatSecury','EventosController@salaChat');
+    Route::get('chatInsecurity','EventosController@salaChat');
+    Route::get('getChat','EventosController@getMessages');
 
 
     Route::get('searchEvento/{id}','EventosController@searchEvento');
@@ -56,7 +61,6 @@ Route::group(['middleware' => 'cors'], function(){
     //--------------------
 
     //----Mensajes------
-    Route::get('getChat','EventosController@getMessages');
     Route::post('addMessages','EventosController@addMessageData'); 
 
     Route::post('upload','UploadController@store');

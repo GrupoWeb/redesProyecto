@@ -13,6 +13,7 @@
                 <el-form label-width="120px" >
                   <el-form-item label="Mensajes:">
                     <div class="chat" >
+                      <!-- {{ Menssage }} -->
                       <div class="chatbox" v-for="(chat, ch) of Message" :key="ch"  >
                           <!-- <ul class="list-unstyled" v-for="(chat, ch) of Message" :key="ch">
                             <li v-if="chat.user_id ===  user" class="p-2 mine messages">{{ chat.message }}</li>
@@ -190,6 +191,7 @@
 </style>
 
 <script>
+  import  CryptoJS from "crypto-js";
 export default {
   
   props: {user:{type:Number},csrf:{
@@ -222,7 +224,9 @@ export default {
       id_user: "",
       id_evento: "",
       id_enviado:1,
-      users:[]
+      users:[],
+      encrypted:"",
+      byte:""
     };
   },
   // mounted() {
@@ -289,12 +293,20 @@ export default {
     //       console.log(error);
     //     });
     // },
+    
     getChat:  function() {
+      
       axios
         .get("/getChat")
         .then(response => {
           this.Message = response.data;
-          //console.log(response.data);
+          // this.Message = window.atob(response.data);
+
+          // console.log(JSON.parse(this.Message));
+          // this.encrypted = CryptoJS.AES.MD5(JSON.stringify(this.Message), 'secret key 123');
+          // this.byte = CryptoJS.AES.MD5(this.encrypted.toString(), 'secret key 123')
+          // console.log(JSON.parse(this.bytes.toString(CryptoJS.enc.Utf8)));
+          // console.log(CryptoJS.AES.decrypt(encrypted, "jj"));
         })
         .catch(function(error) {
           console.log(error);
