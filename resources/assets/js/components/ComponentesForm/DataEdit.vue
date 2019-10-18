@@ -42,7 +42,9 @@
                     </div>
                     <div class="card-body">
                       <ul>
-                        <li class="p-2">jose</li>
+                        <li class="py-2" v-for="(user, index) in users" :key="index">
+                            {{ user.name }}
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -219,7 +221,8 @@ export default {
       message: "",
       id_user: "",
       id_evento: "",
-      id_enviado:1
+      id_enviado:1,
+      users:[]
     };
   },
   // mounted() {
@@ -233,8 +236,32 @@ export default {
 
     Echo.join('chat')
             .listen('MessageSent', (event) => {
+              console.log(event.message);
                 this.Message.push(event.message);
             });
+
+            Echo.join('chat')
+                .here(user => {
+                    this.users = user;
+                })
+                .joining(user => {
+                    this.users.push(user);
+                })
+                .leaving(user => {
+                    this.users = this.users.filter(u => u.id != user.id);
+                })
+                .listen('MessageSent',(event) => {
+                    this.Message.push(event.message);
+                })
+                // .listenForWhisper('typing', user => {
+                //    this.activeUser = user;
+                //     if(this.typingTimer) {
+                //         clearTimeout(this.typingTimer);
+                //     }
+                //    this.typingTimer = setTimeout(() => {
+                //        this.activeUser = false;
+                //    }, 3000);
+                // })
   },
   methods: {
     // llenado: function() {

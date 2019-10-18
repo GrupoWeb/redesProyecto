@@ -123561,6 +123561,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -123591,7 +123593,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       message: "",
       id_user: "",
       id_evento: "",
-      id_enviado: 1
+      id_enviado: 1,
+      users: []
     };
   },
 
@@ -123607,8 +123610,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.getChat();
 
     Echo.join('chat').listen('MessageSent', function (event) {
+      console.log(event.message);
       _this.Message.push(event.message);
     });
+
+    Echo.join('chat').here(function (user) {
+      _this.users = user;
+    }).joining(function (user) {
+      _this.users.push(user);
+    }).leaving(function (user) {
+      _this.users = _this.users.filter(function (u) {
+        return u.id != user.id;
+      });
+    }).listen('MessageSent', function (event) {
+      _this.Message.push(event.message);
+    });
+    // .listenForWhisper('typing', user => {
+    //    this.activeUser = user;
+    //     if(this.typingTimer) {
+    //         clearTimeout(this.typingTimer);
+    //     }
+    //    this.typingTimer = setTimeout(() => {
+    //        this.activeUser = false;
+    //    }, 3000);
+    // })
   },
 
   methods: {
@@ -123872,9 +123897,19 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-body" }, [
-                      _c("ul", [
-                        _c("li", { staticClass: "p-2" }, [_vm._v("jose")])
-                      ])
+                      _c(
+                        "ul",
+                        _vm._l(_vm.users, function(user, index) {
+                          return _c("li", { key: index, staticClass: "py-2" }, [
+                            _vm._v(
+                              "\n                          " +
+                                _vm._s(user.name) +
+                                "\n                      "
+                            )
+                          ])
+                        }),
+                        0
+                      )
                     ])
                   ])
                 ])
