@@ -89,6 +89,14 @@ class EventosController extends Controller
         ]);
     }
 
+     public function Inseguro(){
+        $user = $this->userLoginId();
+        
+        return view('Eventos.inseguro',[
+         'idUser' => $user
+         ]);
+    } 
+
     public function searchEvento($id){
         
         $query = EventosModel::join('responsables','responsable','=','id_Responsable')

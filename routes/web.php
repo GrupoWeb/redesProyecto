@@ -12,11 +12,7 @@
 */
 
 Route::get('/', function () {
-    // if (Auth::check()) {
-    //     // The user is logged in...
-    //     return redirect()->intended('/home');
-        
-    // }else{
+
         return view('auth.login'); 
     
 });
@@ -52,7 +48,7 @@ Route::group(['middleware' => 'cors'], function(){
 
 
     Route::get('chatSecury','EventosController@salaChat');
-    Route::get('chatInsecurity','EventosController@salaChat');
+    Route::get('chatInsecurity','EventosController@Inseguro');
     Route::get('getChat','EventosController@getMessages');
 
 

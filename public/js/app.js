@@ -20878,6 +20878,7 @@ Vue.component('notificacion-component', __webpack_require__(224));
 Vue.component('editar-component', __webpack_require__(86));
 Vue.component('evento-component', __webpack_require__(229));
 Vue.component('chat-component', __webpack_require__(234));
+Vue.component('chat-inseguro', __webpack_require__(241));
 var app = new Vue({
 
     el: '#main'
@@ -125537,6 +125538,707 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 240 */,
+/* 241 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(242)
+}
+var normalizeComponent = __webpack_require__(7)
+/* script */
+var __vue_script__ = __webpack_require__(244)
+/* template */
+var __vue_template__ = __webpack_require__(245)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/ComponentesForm/chatInseguro.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f821ae5e", Component.options)
+  } else {
+    hotAPI.reload("data-v-f821ae5e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 242 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(243);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(20)("3e169ce2", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f821ae5e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./chatInseguro.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f821ae5e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./chatInseguro.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 243 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(16)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.el-row {\r\n  margin-bottom: 20px;\r\n  margin-left: 20px;\n}\n.chatbox {\r\n  width: 100%;\n}\n.userData, .userData_last{\r\n  font-size: 13px;\r\n  color:red;\r\n  display: block;\n}\n.userData{\r\n  margin-bottom: -20px !important;\n}\n.userData_last{\r\n  text-align: right;\r\n  margin-bottom: -20px !important;\n}\n.entrante {\r\n  list-style: none;\r\n  background-color: beige;\r\n  border-radius: 10px;\r\n  padding-left: 20px;\r\n  width: 75%;\n}\n.messages {\r\n  margin-top: 5px;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\n}\n.chat {\r\n  width: 100%;\r\n  border: solid 1px #eee;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  padding: 10px;\r\n  height:420px;\n}\n.message {\r\n  border-radius: 20px;\r\n  padding: 4px 15px;\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  display: inline-block;\n}\n.yours {\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\n}\n.yours .message {\r\n  margin-right: 25%;\r\n  /* background-color: #eee; */\r\n  background-color: #ece5dd;\r\n  position: relative;\n}\n.yours .message.last:before {\r\n  content: \"\";\r\n  position: absolute;\r\n  z-index: 0;\r\n  bottom: 0;\r\n  left: -7px;\r\n  height: 20px;\r\n  width: 20px;\r\n  background: #eee;\r\n  border-bottom-right-radius: 15px;\n}\n.yours .message.last:after {\r\n  content: \"\";\r\n  position: absolute;\r\n  z-index: 1;\r\n  bottom: 0;\r\n  left: -10px;\r\n  width: 10px;\r\n  height: 20px;\r\n  background: white;\r\n  border-bottom-right-radius: 10px;\n}\n.mine {\r\n  -webkit-box-align: end;\r\n      -ms-flex-align: end;\r\n          align-items: flex-end;\n}\n.mine .message {\r\n  color: #000;\r\n  margin-left: 25%;\r\n  background: #dcf8c6;\r\n  /*background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);*/\r\n  background-attachment: fixed;\r\n  position: relative;\n}\n.mine .message.last:before {\r\n  content: \"\";\r\n  position: absolute;\r\n  z-index: 0;\r\n  bottom: 0;\r\n  right: -8px;\r\n  height: 20px;\r\n  width: 20px;\r\n  background: #dcf8c6;\r\n  /*background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);*/\r\n  background-attachment: fixed;\r\n  border-bottom-left-radius: 15px;\n}\n.mine .message.last:after {\r\n  content: \"\";\r\n  position: absolute;\r\n  z-index: 1;\r\n  bottom: 0;\r\n  right: -10px;\r\n  width: 10px;\r\n  height: 20px;\r\n  background: white;\r\n  border-bottom-left-radius: 10px;\n}\n.scrollbar {\r\nmargin-left: 30px;\r\nfloat: left;\r\n\r\n\r\nbackground: #fff;\r\noverflow-y: scroll;\r\nmargin-bottom: 25px;\n}\n.force-overflow {\r\nmin-height: 450px;\n}\n.scrollbar-primary::-webkit-scrollbar {\r\nwidth: 12px;\r\nbackground-color: #F5F5F5;\n}\n.scrollbar-primary::-webkit-scrollbar-thumb {\r\nborder-radius: 10px;\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #4285F4;\n}\n.scrollbar-danger::-webkit-scrollbar-track {\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #F5F5F5;\r\nborder-radius: 10px;\n}\n.scrollbar-danger::-webkit-scrollbar {\r\nwidth: 12px;\r\nbackground-color: #F5F5F5;\n}\n.scrollbar-danger::-webkit-scrollbar-thumb {\r\nborder-radius: 10px;\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #ff3547;\n}\n.scrollbar-warning::-webkit-scrollbar-track {\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #F5F5F5;\r\nborder-radius: 10px;\n}\n.scrollbar-warning::-webkit-scrollbar {\r\nwidth: 12px;\r\nbackground-color: #F5F5F5;\n}\n.scrollbar-warning::-webkit-scrollbar-thumb {\r\nborder-radius: 10px;\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #FF8800;\n}\n.scrollbar-success::-webkit-scrollbar-track {\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #F5F5F5;\r\nborder-radius: 10px;\n}\n.scrollbar-success::-webkit-scrollbar {\r\nwidth: 12px;\r\nbackground-color: #F5F5F5;\n}\n.scrollbar-success::-webkit-scrollbar-thumb {\r\nborder-radius: 10px;\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #00C851;\n}\n.scrollbar-info::-webkit-scrollbar-track {\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #F5F5F5;\r\nborder-radius: 10px;\n}\n.scrollbar-info::-webkit-scrollbar {\r\nwidth: 12px;\r\nbackground-color: #F5F5F5;\n}\n.scrollbar-info::-webkit-scrollbar-thumb {\r\nborder-radius: 10px;\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #33b5e5;\n}\n.scrollbar-default::-webkit-scrollbar-track {\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #F5F5F5;\r\nborder-radius: 10px;\n}\n.scrollbar-default::-webkit-scrollbar {\r\nwidth: 12px;\r\nbackground-color: #F5F5F5;\n}\n.scrollbar-default::-webkit-scrollbar-thumb {\r\nborder-radius: 10px;\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #2BBBAD;\n}\n.scrollbar-secondary::-webkit-scrollbar-track {\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #F5F5F5;\r\nborder-radius: 10px;\n}\n.scrollbar-secondary::-webkit-scrollbar {\r\nwidth: 12px;\r\nbackground-color: #F5F5F5;\n}\n.scrollbar-secondary::-webkit-scrollbar-thumb {\r\nborder-radius: 10px;\r\n-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);\r\nbackground-color: #aa66cc;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 244 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  // props: {user:{type:Number},csrf:{type: String}, Message:{type: String}},
+  props: ["user", "csrf"],
+  data: function data() {
+    return {
+      form: {
+        name: "12",
+        region: "",
+        date1: "",
+        date2: "",
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: ""
+      },
+      form2: {},
+      fileList: [],
+      DataResult: {
+        created_at: ""
+      },
+      Responsables: [],
+      Message: [],
+      textarea: "",
+      anotacion: "",
+      message: "",
+      id_user: "",
+      id_evento: "",
+      id_enviado: 1,
+      users: [],
+      encrypted: "",
+      byte: ""
+    };
+  },
+  mounted: function mounted() {
+    this.ScrollToEnd();
+  },
+  created: function created() {
+    var _this = this;
+
+    this.getChat();
+    setInterval(function () {
+      _this.getChat();
+    }, 1000);
+    // console.log(this.Messages);
+    // this.ScrollToEnd();
+
+    // Echo.join('chat')
+    //     .here(user => {
+    //         this.users = user;
+    //     })
+    //     .joining(user => {
+    //         this.users.push(user);
+    //     })
+    //     .leaving(user => {
+    //         this.users = this.users.filter(u => u.id != user.id);
+    //     })
+    //     .listen('MessageSent',(event) => {
+    //         this.Message.push(event.message);
+    // })
+    // .listenForWhisper('typing', user => {
+    //    this.activeUser = user;
+    //     if(this.typingTimer) {
+    //         clearTimeout(this.typingTimer);
+    //     }
+    //    this.typingTimer = setTimeout(() => {
+    //        this.activeUser = false;
+    //    }, 3000);
+    // })
+  },
+
+  methods: {
+    // llenado: function() {
+    //   axios
+    //     .get("/searchEvento/" + this.id)
+    //     .then(response => {
+    //       this.DataResult = response.data;
+    //     })
+    //     .catch(function(error) {
+    //       // handle error
+    //       console.log(error);
+    //     })
+    //     .finally(function() {
+    //       // always executed
+    //     });
+    // },
+    // getResponsables: function() {
+    //   axios
+    //     .get("/getDataRes")
+    //     .then(response => {
+    //       this.Responsables = response.data;
+    //       //console.log(response.data);
+    //     })
+    //     .catch(function(error) {
+    //       console.log(error);
+    //     });
+    // },
+
+    getChat: function getChat() {
+      var _this2 = this;
+
+      axios.get("/getChat").then(function (response) {
+        _this2.Message = response.data;
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    // getFile: function(){
+    //   axios.get('/fileList/'+ this.id)
+    //   .then(response =>{
+    //   //console.log("dentro");
+    //       this.fileList = response.data;
+
+    //   }).catch(function(error) {
+    //       console.log(error);
+    //     });
+    // }
+    // ,
+    ScrollToEnd: function ScrollToEnd() {
+      var container = document.querySelector(".chat");
+      var scrollHeight = container.scrollHeight;
+      container.scrollTop = scrollHeight;
+    },
+    onSubmit: function onSubmit() {
+      var _this3 = this;
+
+      //  this.Message.push({
+      //   //  user: this.user,
+      //    message: this.textarea 
+      //  });
+      //  console.log(this.Message)
+      var url = "/addMessages";
+      axios.post(url, {
+        message: this.textarea
+      }).then(function (response) {
+
+        _this3.textarea = '';
+
+        // console.log("guardado");
+      }).catch(function (error) {
+        console.log(error.message);
+      });
+    }
+  },
+  updated: function updated() {
+    this.ScrollToEnd();
+  }
+});
+
+/***/ }),
+/* 245 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("el-card", { attrs: { "body-style": { margin: "10px" } } }, [
+        _c(
+          "div",
+          {
+            staticClass: "clearfix",
+            attrs: { slot: "header" },
+            slot: "header"
+          },
+          [_c("span", [_vm._v("Sala de Chat")])]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "text item" },
+          [
+            _c(
+              "el-row",
+              { attrs: { gutter: 20 } },
+              [
+                _c(
+                  "el-col",
+                  { attrs: { span: 16 } },
+                  [
+                    _c(
+                      "el-form",
+                      { attrs: { "label-width": "120px" } },
+                      [
+                        _c("el-form-item", { attrs: { label: "Mensajes:" } }, [
+                          _c(
+                            "div",
+                            { staticClass: "chat scrollbar scrollbar-warning" },
+                            _vm._l(_vm.Message, function(chat, ch) {
+                              return _c(
+                                "div",
+                                { key: ch, staticClass: "chatbox" },
+                                [
+                                  chat.user_id === _vm.user.id
+                                    ? _c(
+                                        "div",
+                                        { staticClass: "mine messages" },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "message last" },
+                                            [
+                                              _c(
+                                                "span",
+                                                {
+                                                  staticClass: "userData_last"
+                                                },
+                                                [_vm._v(_vm._s(chat.name))]
+                                              ),
+                                              _vm._v(_vm._s(chat.message))
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    : _c(
+                                        "div",
+                                        { staticClass: "yours messages" },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "message" },
+                                            [
+                                              _c(
+                                                "span",
+                                                { staticClass: "userData" },
+                                                [_vm._v(_vm._s(chat.name))]
+                                              ),
+                                              _vm._v(_vm._s(chat.message))
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "el-form-item",
+                          [
+                            _c("el-input", {
+                              attrs: { type: "textarea", name: "anotacion" },
+                              model: {
+                                value: _vm.textarea,
+                                callback: function($$v) {
+                                  _vm.textarea = $$v
+                                },
+                                expression: "textarea"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "el-form-item",
+                          [
+                            _c(
+                              "el-button",
+                              {
+                                attrs: { type: "primary" },
+                                on: { click: _vm.onSubmit }
+                              },
+                              [_c("i", { staticClass: "el-icon-s-promotion" })]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f821ae5e", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
