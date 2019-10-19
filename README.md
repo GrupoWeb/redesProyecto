@@ -1,35 +1,27 @@
-# Laravel-5.7 with Admin-LTE 3-BoilerPlate
+# Chat en Tiempo Real 
 
-# Installation
+# Instalacón
 ```
-git clone https://github.com/RVP04/Laravel-5.7-with-Admin-LTE-3-Boiler-Plate.git projectname
-cd projectname
+git clone https://github.com/GrupoWeb/redesProyecto.git NombreProyecto
+cd NombreProyecto
 composer install
+npm install
 php artisan key:generate
-Create a database and inform .env
+cp .env.example
+crear la base de datos y configurar el archvio .env con las credenciales de la conexión
+(dentro del archivo .env.example se encuentra la configuración de boardcast que se utilizar para la parte segura)
 ```
 # Screen Shot
-![alt text](https://i.imgrpost.com/imgr/2018/08/18/demo.png)
-
-## Built With
-
-* [Laravel](https://laravel.com/) - The PHP Framework For Web Artisans
-* [Admin LTE 3](https://github.com/almasaeed2010/AdminLTE) - AdminLTE - Free Premium Admin control Panel Theme
-
-## ICONs 
-
-* Flat Icons
-
-# More Updates Coming Soon
-
-# https://github.com/maddhatter/laravel-fullcalendar
-
-# https://packagist.org/packages/eternicode/bootstrap-datepicker
+![alt text](https://i.imgrpost.com/imgr/2019/10/19/login.jpg)
+![alt text](https://i.imgrpost.com/imgr/2019/10/19/Dashboard-de-usuario.jpg)
+![alt text](https://i.imgrpost.com/imgr/2019/10/19/chatSeguroSinMensajes.jpg)
+![alt text](https://i.imgrpost.com/imgr/2019/10/19/chatSeguroScroll.jpg)
+![alt text](https://i.imgrpost.com/imgr/2019/10/19/chatInseguro.jpg)
+![alt text](https://i.imgrpost.com/imgr/2019/10/19/chatSeguroConMensajes.jpg)
+![alt text](https://i.imgrpost.com/imgr/2019/10/19/chatSeguroConUsuarios.jpg)
+![alt text](https://i.imgrpost.com/imgr/2019/10/19/registroLleno.jpg)
 
 
-https://medium.com/@jeffrey.allen.lewis/http-requests-compared-why-axios-is-better-than-node-fetch-more-secure-can-handle-errors-better-39fde869a4a6
 
 
-https://codar.club/blogs/how-to-use-axios-request-interception-in-vue.html
 
-https://stefanzweifel.io/posts/code-experiment-end-to-end-encrypted-diary-app/
