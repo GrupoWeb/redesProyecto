@@ -17,10 +17,18 @@
       <nav class="mt-2 sidebar-nav">
           <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu" data-accordion="false">
               <li class="nav-item">
-                  <a href="../chatOnline" class="nav-link">
-                      <i class="nav-icon fa fa-whatsapp" aria-hidden="true" style="color:green"></i>
+                  <a href="../chatSecury" class="nav-link">
+                      <i class="nav-icon fa fa-lock" aria-hidden="true" style="color:green"></i>
                       <p>
-                          Sala de Chat
+                          Sala de Chat Seguro
+                      </p>
+                    </a>
+              </li>
+              <li class="nav-item">
+                  <a href="../chatInsecurity" class="nav-link">
+                      <i class="nav-icon fa fa-times" aria-hidden="true" style="color:red"></i>
+                      <p>
+                          Sala de Chat Inseguro
                       </p>
                     </a>
               </li>

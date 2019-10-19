@@ -15,6 +15,7 @@
       </div>
     </div>
     <div class="container-fluid col-11 col-lg-11 col-sm-11 col-xl-11">
+    
       <editar-component  :user='{{ $idUser }}' csrf="{{ csrf_token() }}"></editar-component>
     </div>
 </div>

@@ -13,6 +13,7 @@
                 <el-form label-width="120px" >
                   <el-form-item label="Mensajes:">
                     <div class="chat" >
+                      <!-- {{ Menssage }} -->
                       <div class="chatbox" v-for="(chat, ch) of Message" :key="ch"  >
                           <!-- <ul class="list-unstyled" v-for="(chat, ch) of Message" :key="ch">
                             <li v-if="chat.user_id ===  user" class="p-2 mine messages">{{ chat.message }}</li>
@@ -42,7 +43,9 @@
                     </div>
                     <div class="card-body">
                       <ul>
-                        <li class="p-2">jose</li>
+                        <li class="py-2" v-for="(user, index) in users" :key="index">
+                            {{ user.name }}
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -188,6 +191,7 @@
 </style>
 
 <script>
+  import  CryptoJS from "crypto-js";
 export default {
   
   props: {user:{type:Number},csrf:{
@@ -219,7 +223,10 @@ export default {
       message: "",
       id_user: "",
       id_evento: "",
-      id_enviado:1
+      id_enviado:1,
+      users:[],
+      encrypted:"",
+      byte:""
     };
   },
   // mounted() {
@@ -233,8 +240,32 @@ export default {
 
     Echo.join('chat')
             .listen('MessageSent', (event) => {
+              console.log(event.message);
                 this.Message.push(event.message);
             });
+
+            Echo.join('chat')
+                .here(user => {
+                    this.users = user;
+                })
+                .joining(user => {
+                    this.users.push(user);
+                })
+                .leaving(user => {
+                    this.users = this.users.filter(u => u.id != user.id);
+                })
+                .listen('MessageSent',(event) => {
+                    this.Message.push(event.message);
+                })
+                // .listenForWhisper('typing', user => {
+                //    this.activeUser = user;
+                //     if(this.typingTimer) {
+                //         clearTimeout(this.typingTimer);
+                //     }
+                //    this.typingTimer = setTimeout(() => {
+                //        this.activeUser = false;
+                //    }, 3000);
+                // })
   },
   methods: {
     // llenado: function() {
@@ -262,12 +293,20 @@ export default {
     //       console.log(error);
     //     });
     // },
+    
     getChat:  function() {
+      
       axios
         .get("/getChat")
         .then(response => {
           this.Message = response.data;
-          //console.log(response.data);
+          // this.Message = window.atob(response.data);
+
+          // console.log(JSON.parse(this.Message));
+          // this.encrypted = CryptoJS.AES.MD5(JSON.stringify(this.Message), 'secret key 123');
+          // this.byte = CryptoJS.AES.MD5(this.encrypted.toString(), 'secret key 123')
+          // console.log(JSON.parse(this.bytes.toString(CryptoJS.enc.Utf8)));
+          // console.log(CryptoJS.AES.decrypt(encrypted, "jj"));
         })
         .catch(function(error) {
           console.log(error);
