@@ -78,11 +78,14 @@ class EventosController extends Controller
     }
 
     public function salaChat(){
-        $user = $this->userLoginId();
+        // $user = $this->userLoginId();
+        $mensajes = $this->getMessage();
 
+        
         return view('Eventos.edit',[
 //            'id' => $id,
-            'idUser' => $user
+            // 'idUser' => $user,
+            'mensajes' => $mensajes
         ]);
     }
 
@@ -116,22 +119,20 @@ class EventosController extends Controller
         return $user;
     }
     public function getMessages(){
-         
+          
 
         $mensaje = DB::table('messages')
                         ->join('users','users.id','=','messages.user_id')
                         ->select('messages.id','messages.message','messages.user_id','users.name')
                         ->get();
-        
-        // $message = messages::all();
 
-        ;
-
-        // dd(encrypt($mensaje));
-        
 
         return response()->json($mensaje,200);
         // return response()->json(base64_encode($mensaje),200);
+    }
+
+    public function getMessage(){
+        return  messages::with('user')->get();
     }
 
     public function addMessageData(Request $request){

@@ -12,17 +12,18 @@
               <el-col :span="16">
                 <el-form label-width="120px" >
                   <el-form-item label="Mensajes:">
-                    <div class="chat" >
+                    <div class="chat scrollbar scrollbar-warning" >
                       <!-- {{ Menssage }} -->
+                      
                       <div class="chatbox" v-for="(chat, ch) of Message" :key="ch"  >
                           <!-- <ul class="list-unstyled" v-for="(chat, ch) of Message" :key="ch">
                             <li v-if="chat.user_id ===  user" class="p-2 mine messages">{{ chat.message }}</li>
                           </ul> -->
-                            <div v-if="chat.user_id ===  user" class="mine messages">
-                              <div class="message last"><span class="userData_last">{{ chat.name }}</span>{{ chat.message}}</div>
+                            <div v-if="chat.user.id ===  user.id" class="mine messages">
+                              <div class="message last"><span class="userData_last">{{ chat.user.name }}</span>{{ chat.message}}</div>
                             </div>
                             <div v-else class="yours messages">
-                              <div class="message"><span class="userData">{{ chat.name }}</span>{{ chat.message}}</div>
+                              <div class="message"><span class="userData">{{ chat.user.name }}</span>{{ chat.message}}</div>
                             </div>
                       </div>
                     </div>
@@ -105,8 +106,40 @@
   flex-direction: column;
   padding: 10px;
   height:420px;
-  overflow-y:scroll
+
 }
+
+/* Tamaño del scroll */
+/* .chat::-webkit-scrollbar , chat::{
+  width: 8px;
+  height: 8px;
+} */
+
+ /* Estilos barra (thumb) de scroll */
+/* .chat::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+} */
+/* 
+.chat::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+
+.chat::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+} */
+
+ /* Estilos track de scroll */
+/* .chat::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+.chat::-webkit-scrollbar-track:hover, 
+.chat::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+} */
 
 .message {
   border-radius: 20px;
@@ -188,15 +221,120 @@
   background: white;
   border-bottom-left-radius: 10px;
 }
+
+.scrollbar {
+margin-left: 30px;
+float: left;
+
+
+background: #fff;
+overflow-y: scroll;
+margin-bottom: 25px;
+}
+.force-overflow {
+min-height: 450px;
+}
+
+.scrollbar-primary::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-primary::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #4285F4; }
+
+.scrollbar-danger::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-danger::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-danger::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #ff3547; }
+
+.scrollbar-warning::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-warning::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-warning::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #FF8800; }
+
+.scrollbar-success::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-success::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-success::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #00C851; }
+
+.scrollbar-info::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-info::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-info::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #33b5e5; }
+
+.scrollbar-default::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-default::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-default::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #2BBBAD; }
+
+.scrollbar-secondary::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-secondary::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-secondary::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #aa66cc; }
 </style>
 
 <script>
-  import  CryptoJS from "crypto-js";
+ 
 export default {
   
-  props: {user:{type:Number},csrf:{
-                type: String
-            }},
+  // props: {user:{type:Number},csrf:{type: String}, Message:{type: String}},
+  props: ["user","Messages"],
   data() {
     return {
       form: {
@@ -229,20 +367,15 @@ export default {
       byte:""
     };
   },
-  // mounted() {
-  //    this.getChat();
-  //   setInterval(() => {
-  //     this.getChat();
-  //   }, 1000);
-  // },
+  mounted() {
+     this.ScrollToEnd();
+  },
   created(){
-    this.getChat();
-
-    Echo.join('chat')
-            .listen('MessageSent', (event) => {
-              console.log(event.message);
-                this.Message.push(event.message);
-            });
+    // this.getChat();
+    // console.log(this.Messages);
+    // this.ScrollToEnd();
+    this.Message = this.Messages;
+   
 
             Echo.join('chat')
                 .here(user => {
@@ -294,115 +427,119 @@ export default {
     //     });
     // },
     
-    getChat:  function() {
+    // getChat:  function() {
       
-      axios
-        .get("/getChat")
-        .then(response => {
-          this.Message = response.data;
-          // this.Message = window.atob(response.data);
-
-          // console.log(JSON.parse(this.Message));
-          // this.encrypted = CryptoJS.AES.MD5(JSON.stringify(this.Message), 'secret key 123');
-          // this.byte = CryptoJS.AES.MD5(this.encrypted.toString(), 'secret key 123')
-          // console.log(JSON.parse(this.bytes.toString(CryptoJS.enc.Utf8)));
-          // console.log(CryptoJS.AES.decrypt(encrypted, "jj"));
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-    getFile: function(){
-      axios.get('/fileList/'+ this.id)
-      .then(response =>{
-      //console.log("dentro");
-          this.fileList = response.data;
+    //   axios
+    //     .get("/getChat")
+    //     .then(response => {
+    //       this.Message = response.data;
+    //     })
+    //     .catch(function(error) {
+    //       console.log(error);
+    //     });
+    // },
+    // getFile: function(){
+    //   axios.get('/fileList/'+ this.id)
+    //   .then(response =>{
+    //   //console.log("dentro");
+    //       this.fileList = response.data;
           
-      }).catch(function(error) {
-          console.log(error);
-        });
-    }
-    ,
+    //   }).catch(function(error) {
+    //       console.log(error);
+    //     });
+    // }
+    // ,
+    ScrollToEnd(){
+      var container = document.querySelector(".chat");
+      var scrollHeight = container.scrollHeight;
+      container.scrollTop = scrollHeight;
+    },
      onSubmit() {
 
        this.Message.push({
+         user: this.user,
          message: this.textarea 
        });
+      //  console.log(this.Message)
       var url = "/addMessages";
        axios
         .post(url, {
           message: this.textarea
         })
         .then(response => {
-             this.getChat();
-            this.textarea = "";
+             
+            this.textarea = '';
+            
           // console.log("guardado");
         })
         .catch(error => {
           console.log(error.message);
         });
     },
-    handleRemove(file, fileList) {
-      let vm = this
-        axios.delete('/upload/' + file.uid)
-            .then(function () {
-                let index = _.findIndex(vm.fileList, ['uid', file.uid])
-                vm.$delete(vm.fileList, index)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    },
-    handlePreview(file) {
-      console.log(file);
-    },
-    handleExceed(files, fileList) {
-      this.$message.warning(
-        `El límite es 3, haz seleccionado ${
-          files.length
-        } archivos esta vez, añade hasta ${files.length + fileList.length}`
-      );
-    },
-    cargaSuccess(response, file, fileList) {
-      let id_fila = ''
-      var vm = this
-        _.map(response, function (data) {
-            file['uid'] = data
+    // handleRemove(file, fileList) {
+    //   let vm = this
+    //     axios.delete('/upload/' + file.uid)
+    //         .then(function () {
+    //             let index = _.findIndex(vm.fileList, ['uid', file.uid])
+    //             vm.$delete(vm.fileList, index)
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // },
+    // handlePreview(file) {
+    //   console.log(file);
+    // },
+    // handleExceed(files, fileList) {
+    //   this.$message.warning(
+    //     `El límite es 3, haz seleccionado ${
+    //       files.length
+    //     } archivos esta vez, añade hasta ${files.length + fileList.length}`
+    //   );
+    // },
+    // cargaSuccess(response, file, fileList) {
+    //   let id_fila = ''
+    //   var vm = this
+    //     _.map(response, function (data) {
+    //         file['uid'] = data
             
-        })
-        vm.fileList = fileList;
+    //     })
+    //     vm.fileList = fileList;
       
-      var url = "/Uploadfile";
-      axios
-        .post(url, {
-          id_evento: this.id,
-          id_file: file.uid
-        })
-        .then(response => {
-          this.$message.success(`Documento Cargado`);
-        })
-        .catch(error => {
-          console.log(error.message);
-        });
-    },
-    submitForm2 () { 
-      this.loading = true 
-      if(this.$refs.upload._data.uploadFiles.length !== 0){ 
-        return this.$refs.upload.submit() 
-      } 
-        return axios.post('/api/v1/news/store',this.form)
-          .then((response) =>{ 
-              this.$emit('news-data',response.data.data) 
-              this.loading = false 
-              this.closeNewsForm() 
-              this.resetForm() 
-          })
-          .catch((error) =>{ 
-              this.form.errors = error.response.data.errors 
-              this.loading = false 
-              console.log(error.response.data) 
-          }) 
-    }
+    //   var url = "/Uploadfile";
+    //   axios
+    //     .post(url, {
+    //       id_evento: this.id,
+    //       id_file: file.uid
+    //     })
+    //     .then(response => {
+    //       this.$message.success(`Documento Cargado`);
+    //     })
+    //     .catch(error => {
+    //       console.log(error.message);
+    //     });
+    // },
+    // submitForm2 () { 
+    //   this.loading = true 
+    //   if(this.$refs.upload._data.uploadFiles.length !== 0){ 
+    //     return this.$refs.upload.submit() 
+    //   } 
+    //     return axios.post('/api/v1/news/store',this.form)
+    //       .then((response) =>{ 
+    //           this.$emit('news-data',response.data.data) 
+    //           this.loading = false 
+    //           this.closeNewsForm() 
+    //           this.resetForm() 
+    //       })
+    //       .catch((error) =>{ 
+    //           this.form.errors = error.response.data.errors 
+    //           this.loading = false 
+    //           console.log(error.response.data) 
+    //       }) 
+    // }
+  },
+  updated(){
+    this.ScrollToEnd();
   }
 };
 </script>
