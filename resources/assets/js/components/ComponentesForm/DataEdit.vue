@@ -1,13 +1,32 @@
 <template>
   <div class="container">
-    <!-- <el-row :gutter="20">
-      <el-col :span="18" > -->
+            <!-- <el-form :model="formConnect" ref="formConnect" label-width="120px" :rules="rules">
+                <el-row :gutter="20">
+                  <el-col :span="12">
+                    <el-form-item label="Port:" prop="port">
+                        <el-input v-model="formConnect.port" ></el-input>
+                        
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                      <el-form-item label="IP:" prop="ip">
+                          <el-input v-model="formConnect.ip"></el-input>
+                      </el-form-item>
+                  </el-col>
+              </el-row>
+              <el-form-item>
+                <button v-if="! connected" type="submit" @click.prevent="connect" class="mr-2 btn btn-sm btn-primary">
+                    Connect
+                </button>
+              </el-form-item>
+            </el-form> -->
         
         <el-card :body-style="{ margin:'10px'}" >
           <div slot="header" class="clearfix">
             <span>Sala de Chat</span>
           </div>
           <div class="text item">
+
             <el-row :gutter="20">
               <el-col :span="16">
                 <el-form label-width="120px" >
@@ -331,9 +350,9 @@
 
 <script>
   import CryptoJS from 'crypto-js';
+  import Pusher from 'pusher-js';
   const KEY = 'jj';
   const IV = '1234567890123456';
-
 export default {
 
   // props: {user:{type:Number},csrf:{type: String}, Message:{type: String}},
@@ -348,7 +367,39 @@ export default {
         delivery: false,
         type: [],
         resource: "",
-        desc: ""
+        desc: "",
+      },
+      formConnect:{
+        port:"",
+        ip:""
+      },
+      connected: false,
+      pusher: null,
+      app: {
+        'id' :  'anyID',
+        'key':  'anyKey',
+        'secret':  'anySecret',
+        'capacity':  null,
+        'enable_client_messages':  false,
+        'enable_statistics': true,
+      },
+      logs: [],
+      
+      rules: {
+        port: [
+          {
+            required: true,
+            message: "ingrese dato valido",
+            trigger: "blur"
+          }
+        ],
+        ip: [
+          {
+            required: true,
+            message: "ingrese dato valido",
+            trigger: "blur"
+          }
+        ]        
       },
       form2: {},
       fileList: [
@@ -483,67 +534,68 @@ export default {
           console.log(error.message);
         });
     },
-    // handleRemove(file, fileList) {
-    //   let vm = this
-    //     axios.delete('/upload/' + file.uid)
-    //         .then(function () {
-    //             let index = _.findIndex(vm.fileList, ['uid', file.uid])
-    //             vm.$delete(vm.fileList, index)
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // },
-    // handlePreview(file) {
-    //   console.log(file);
-    // },
-    // handleExceed(files, fileList) {
-    //   this.$message.warning(
-    //     `El límite es 3, haz seleccionado ${
-    //       files.length
-    //     } archivos esta vez, añade hasta ${files.length + fileList.length}`
-    //   );
-    // },
-    // cargaSuccess(response, file, fileList) {
-    //   let id_fila = ''
-    //   var vm = this
-    //     _.map(response, function (data) {
-    //         file['uid'] = data
-            
-    //     })
-    //     vm.fileList = fileList;
-      
-    //   var url = "/Uploadfile";
-    //   axios
-    //     .post(url, {
-    //       id_evento: this.id,
-    //       id_file: file.uid
-    //     })
-    //     .then(response => {
-    //       this.$message.success(`Documento Cargado`);
-    //     })
-    //     .catch(error => {
-    //       console.log(error.message);
-    //     });
-    // },
-    // submitForm2 () { 
-    //   this.loading = true 
-    //   if(this.$refs.upload._data.uploadFiles.length !== 0){ 
-    //     return this.$refs.upload.submit() 
-    //   } 
-    //     return axios.post('/api/v1/news/store',this.form)
-    //       .then((response) =>{ 
-    //           this.$emit('news-data',response.data.data) 
-    //           this.loading = false 
-    //           this.closeNewsForm() 
-    //           this.resetForm() 
-    //       })
-    //       .catch((error) =>{ 
-    //           this.form.errors = error.response.data.errors 
-    //           this.loading = false 
-    //           console.log(error.response.data) 
-    //       }) 
-    // }
+          connect() {
+                this.pusher = new Pusher(this.app.key, {
+                    wsHost: this.app.host === null ? window.location.hostname : this.app.host,
+                    wsPort: this.formConnect.port === null ? 6001 : this.port,
+                    wssPort: this.formConnect.port === null ? 6001 : this.port,
+                    wsPath: this.app.path === null ? '' : this.app.path,
+                    disableStats: true,
+                    authEndpoint: '/{{ request()->path() }}/auth',
+                    auth: {
+                        headers: {
+                            'X-CSRF-Token': "{{ csrf_token() }}",
+                            'X-App-ID': this.app.id
+                        }
+                    },
+                    enabledTransports: ['ws', 'flash']
+                });
+
+                this.pusher.connection.bind('state_change', states => {
+                    // $('div#status').text("Channels current state is " + states.current);
+                });
+
+                this.pusher.connection.bind('connected', () => {
+                    this.connected = true;
+
+                    // this.loadChart();
+                });
+                this.pusher.connection.bind('disconnected', () => {
+                    this.connected = false;
+                    this.logs = [];
+                });
+                this.pusher.connection.bind('error', event => {
+                    if (event.error.data.code === 4100) {
+                        $('div#status').text("Maximum connection limit exceeded!");
+                        this.connected = false;
+                        this.logs = [];
+                        throw new Error("Over capacity");
+                    }
+                });
+                this.subscribeToAllChannels();
+                // this.subscribeToStatistics();
+          },
+          disconnect() {
+                this.pusher.disconnect();
+          },
+
+          subscribeToAllChannels() {
+                [
+                    'disconnection',
+                    'connection',
+                    'vacated',
+                    'occupied',
+                    'subscribed',
+                    'client-message',
+                    'api-message',
+                ].forEach(channelName => this.subscribeToChannel(channelName))
+            },
+            subscribeToChannel(channel) {
+                this.pusher.subscribe('{{ \BeyondCode\LaravelWebSockets\Dashboard\DashboardLogger::LOG_CHANNEL_PREFIX }}' + channel)
+                    .bind('log-message', (data) => {
+                        this.logs.push(data);
+                    });
+            },
   },
   updated(){
     this.ScrollToEnd();

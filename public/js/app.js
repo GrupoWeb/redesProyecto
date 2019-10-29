@@ -126719,6 +126719,8 @@ module.exports = function listToStyles (parentId, list) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_crypto_js__ = __webpack_require__(219);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_crypto_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_crypto_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pusher_js__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_pusher_js__);
 //
 //
 //
@@ -127050,158 +127052,265 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 var KEY = 'jj';
 var IV = '1234567890123456';
-
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-  // props: {user:{type:Number},csrf:{type: String}, Message:{type: String}},
-  props: ["user", "Messages"],
-  data: function data() {
-    return {
-      form: {
-        name: "12",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
-      },
-      form2: {},
-      fileList: [],
-      DataResult: {
-        created_at: ""
-      },
-      Responsables: [],
-      Message: [],
-      textarea: "",
-      anotacion: "",
-      message: "",
-      id_user: "",
-      id_evento: "",
-      id_enviado: 1,
-      users: [],
-      encrypted: "",
-      byte: "",
-      encrypteds: "",
-      ColeccionNormal: [],
-      eventoC: []
-    };
-  },
-  mounted: function mounted() {
-    this.ScrollToEnd();
-  },
-  created: function created() {
-    var _this = this;
+    // props: {user:{type:Number},csrf:{type: String}, Message:{type: String}},
+    props: ["user", "Messages"],
+    data: function data() {
+        return {
+            form: {
+                name: "12",
+                region: "",
+                date1: "",
+                date2: "",
+                delivery: false,
+                type: [],
+                resource: "",
+                desc: ""
+            },
+            formConnect: {
+                port: "",
+                ip: ""
+            },
+            connected: false,
+            pusher: null,
+            app: {
+                'id': 'anyID',
+                'key': 'anyKey',
+                'secret': 'anySecret',
+                'capacity': null,
+                'enable_client_messages': false,
+                'enable_statistics': true
+            },
+            logs: [],
 
-    // this.getChat();
-    // console.log(this.Messages);
-    // this.ScrollToEnd();
-    this.convertir();
+            rules: {
+                port: [{
+                    required: true,
+                    message: "ingrese dato valido",
+                    trigger: "blur"
+                }],
+                ip: [{
+                    required: true,
+                    message: "ingrese dato valido",
+                    trigger: "blur"
+                }]
+            },
+            form2: {},
+            fileList: [],
+            DataResult: {
+                created_at: ""
+            },
+            Responsables: [],
+            Message: [],
+            textarea: "",
+            anotacion: "",
+            message: "",
+            id_user: "",
+            id_evento: "",
+            id_enviado: 1,
+            users: [],
+            encrypted: "",
+            byte: "",
+            encrypteds: "",
+            ColeccionNormal: [],
+            eventoC: []
+        };
+    },
+    mounted: function mounted() {
+        this.ScrollToEnd();
+    },
+    created: function created() {
+        var _this = this;
 
-    this.Message = this.ColeccionNormal;
+        // this.getChat();
+        // console.log(this.Messages);
+        // this.ScrollToEnd();
+        this.convertir();
 
-    Echo.join('chat').here(function (user) {
-      _this.users = user;
-    }).joining(function (user) {
-      _this.users.push(user);
-    }).leaving(function (user) {
-      _this.users = _this.users.filter(function (u) {
-        return u.id != user.id;
-      });
-    }).listen('MessageSent', function (event) {
-      _this.Message.push({
-        id: event.message['id'],
-        message: _this.getDAES(event.message['message']),
-        user_id: event.message['user_id'],
-        user: event.message['user']
-      });
-    });
-    // .listenForWhisper('typing', user => {
-    //    this.activeUser = user;
-    //     if(this.typingTimer) {
-    //         clearTimeout(this.typingTimer);
-    //     }
-    //    this.typingTimer = setTimeout(() => {
-    //        this.activeUser = false;
-    //    }, 3000);
-    // })
-  },
+        this.Message = this.ColeccionNormal;
 
-  methods: {
-    convertir: function convertir() {
-      for (var i = 0; i <= this.Messages.length - 1; i++) {
-        this.ColeccionNormal.push({
-          id: this.Messages[i].id,
-          message: this.getDAES(this.Messages[i].message),
-          user_id: this.Messages[i].user_id,
-          user: this.Messages[i].user
+        Echo.join('chat').here(function (user) {
+            _this.users = user;
+        }).joining(function (user) {
+            _this.users.push(user);
+        }).leaving(function (user) {
+            _this.users = _this.users.filter(function (u) {
+                return u.id != user.id;
+            });
+        }).listen('MessageSent', function (event) {
+            _this.Message.push({
+                id: event.message['id'],
+                message: _this.getDAES(event.message['message']),
+                user_id: event.message['user_id'],
+                user: event.message['user']
+            });
         });
-      }
+        // .listenForWhisper('typing', user => {
+        //    this.activeUser = user;
+        //     if(this.typingTimer) {
+        //         clearTimeout(this.typingTimer);
+        //     }
+        //    this.typingTimer = setTimeout(() => {
+        //        this.activeUser = false;
+        //    }, 3000);
+        // })
     },
-    getAesString: function getAesString(data, key, iv) {
-      var key_hash = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.MD5(key).toString();
-      var key = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.enc.Utf8.parse(key_hash);
-      var iv = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.enc.Utf8.parse(iv);
-      var encrypted = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.AES.encrypt(data, key, {
-        iv: iv,
-        mode: __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.mode.CBC,
-        padding: __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.pad.Pkcs7
-      });
-      return encrypted.toString();
-    },
-    getDAesString: function getDAesString(encrypted, key, iv) {
-      var key_hash = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.MD5(key).toString();
-      var key = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.enc.Utf8.parse(key_hash);
-      var iv = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.enc.Utf8.parse(iv);
-      var decrypted = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.AES.decrypt(encrypted, key, {
-        iv: iv,
-        mode: __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.mode.CBC,
-        padding: __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.pad.Pkcs7
-      });
-      return decrypted.toString(__WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.enc.Utf8);
-    },
-    getEAES: function getEAES(data) {
-      var encrypted = this.getAesString(data, KEY, IV);
-      return encrypted;
-    },
-    getDAES: function getDAES(data) {
-      return this.getDAesString(data, KEY, IV);
-    },
-    ScrollToEnd: function ScrollToEnd() {
-      var container = document.querySelector(".chat");
-      var scrollHeight = container.scrollHeight;
-      container.scrollTop = scrollHeight;
-    },
-    onSubmit: function onSubmit() {
-      var _this2 = this;
 
-      this.encrypteds = this.getEAES(this.textarea);
-      //   console.log(this.encrypteds);
-      //   console.log(this.getDAES( this.encrypteds));
+    methods: {
+        convertir: function convertir() {
+            for (var i = 0; i <= this.Messages.length - 1; i++) {
+                this.ColeccionNormal.push({
+                    id: this.Messages[i].id,
+                    message: this.getDAES(this.Messages[i].message),
+                    user_id: this.Messages[i].user_id,
+                    user: this.Messages[i].user
+                });
+            }
+        },
+        getAesString: function getAesString(data, key, iv) {
+            var key_hash = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.MD5(key).toString();
+            var key = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.enc.Utf8.parse(key_hash);
+            var iv = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.enc.Utf8.parse(iv);
+            var encrypted = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.AES.encrypt(data, key, {
+                iv: iv,
+                mode: __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.mode.CBC,
+                padding: __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.pad.Pkcs7
+            });
+            return encrypted.toString();
+        },
+        getDAesString: function getDAesString(encrypted, key, iv) {
+            var key_hash = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.MD5(key).toString();
+            var key = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.enc.Utf8.parse(key_hash);
+            var iv = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.enc.Utf8.parse(iv);
+            var decrypted = __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.AES.decrypt(encrypted, key, {
+                iv: iv,
+                mode: __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.mode.CBC,
+                padding: __WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.pad.Pkcs7
+            });
+            return decrypted.toString(__WEBPACK_IMPORTED_MODULE_0_crypto_js___default.a.enc.Utf8);
+        },
+        getEAES: function getEAES(data) {
+            var encrypted = this.getAesString(data, KEY, IV);
+            return encrypted;
+        },
+        getDAES: function getDAES(data) {
+            return this.getDAesString(data, KEY, IV);
+        },
+        ScrollToEnd: function ScrollToEnd() {
+            var container = document.querySelector(".chat");
+            var scrollHeight = container.scrollHeight;
+            container.scrollTop = scrollHeight;
+        },
+        onSubmit: function onSubmit() {
+            var _this2 = this;
 
-      this.Message.push({
-        user: this.user,
-        message: this.textarea
-      });
-      var url = "/addMessages";
-      axios.post(url, {
-        // message: this.textarea
-        message: this.encrypteds
-      }).then(function (response) {
-        _this2.textarea = '';
-      }).catch(function (error) {
-        console.log(error.message);
-      });
+            this.encrypteds = this.getEAES(this.textarea);
+            //   console.log(this.encrypteds);
+            //   console.log(this.getDAES( this.encrypteds));
+
+            this.Message.push({
+                user: this.user,
+                message: this.textarea
+            });
+            var url = "/addMessages";
+            axios.post(url, {
+                // message: this.textarea
+                message: this.encrypteds
+            }).then(function (response) {
+                _this2.textarea = '';
+            }).catch(function (error) {
+                console.log(error.message);
+            });
+        },
+        connect: function connect() {
+            var _this3 = this;
+
+            this.pusher = new __WEBPACK_IMPORTED_MODULE_1_pusher_js___default.a(this.app.key, {
+                wsHost: this.app.host === null ? window.location.hostname : this.app.host,
+                wsPort: this.formConnect.port === null ? 6001 : this.port,
+                wssPort: this.formConnect.port === null ? 6001 : this.port,
+                wsPath: this.app.path === null ? '' : this.app.path,
+                disableStats: true,
+                authEndpoint: '/{{ request()->path() }}/auth',
+                auth: {
+                    headers: {
+                        'X-CSRF-Token': "{{ csrf_token() }}",
+                        'X-App-ID': this.app.id
+                    }
+                },
+                enabledTransports: ['ws', 'flash']
+            });
+
+            this.pusher.connection.bind('state_change', function (states) {
+                // $('div#status').text("Channels current state is " + states.current);
+            });
+
+            this.pusher.connection.bind('connected', function () {
+                _this3.connected = true;
+
+                // this.loadChart();
+            });
+            this.pusher.connection.bind('disconnected', function () {
+                _this3.connected = false;
+                _this3.logs = [];
+            });
+            this.pusher.connection.bind('error', function (event) {
+                if (event.error.data.code === 4100) {
+                    $('div#status').text("Maximum connection limit exceeded!");
+                    _this3.connected = false;
+                    _this3.logs = [];
+                    throw new Error("Over capacity");
+                }
+            });
+            this.subscribeToAllChannels();
+            // this.subscribeToStatistics();
+        },
+        disconnect: function disconnect() {
+            this.pusher.disconnect();
+        },
+        subscribeToAllChannels: function subscribeToAllChannels() {
+            var _this4 = this;
+
+            ['disconnection', 'connection', 'vacated', 'occupied', 'subscribed', 'client-message', 'api-message'].forEach(function (channelName) {
+                return _this4.subscribeToChannel(channelName);
+            });
+        },
+        subscribeToChannel: function subscribeToChannel(channel) {
+            var _this5 = this;
+
+            this.pusher.subscribe('{{ \BeyondCode\LaravelWebSockets\Dashboard\DashboardLogger::LOG_CHANNEL_PREFIX }}' + channel).bind('log-message', function (data) {
+                _this5.logs.push(data);
+            });
+        }
+    },
+    updated: function updated() {
+        this.ScrollToEnd();
     }
-  },
-  updated: function updated() {
-    this.ScrollToEnd();
-  }
 });
 
 /***/ }),
