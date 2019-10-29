@@ -368,7 +368,9 @@ export default {
       users:[],
       encrypted:"",
       byte:"",
-      encrypteds:""
+      encrypteds:"",
+      ColeccionNormal:[],
+      eventoC:[]
     };
   },
   mounted() {
@@ -378,7 +380,9 @@ export default {
     // this.getChat();
     // console.log(this.Messages);
     // this.ScrollToEnd();
-    this.Message = this.Messages;
+    this.convertir();
+    
+    this.Message = this.ColeccionNormal;
    
 
             Echo.join('chat')
@@ -392,7 +396,12 @@ export default {
                     this.users = this.users.filter(u => u.id != user.id);
                 })
                 .listen('MessageSent',(event) => {
-                    this.Message.push(event.message);
+                    this.Message.push({
+                        id: event.message['id'],
+                        message: this.getDAES(event.message['message'] ),
+                        user_id: event.message['user_id'],
+                        user: event.message['user']
+                    })
                 })
                 // .listenForWhisper('typing', user => {
                 //    this.activeUser = user;
@@ -405,6 +414,16 @@ export default {
                 // })
   },
   methods: {
+    convertir(){
+            for (let i = 0; i <= this.Messages.length-1; i++) {
+                    this.ColeccionNormal.push({
+                        id: this.Messages[i].id,
+                        message: this.getDAES(this.Messages[i].message ),
+                        user_id: this.Messages[i].user_id,
+                        user: this.Messages[i].user
+                    })
+            }
+    },
     getAesString(data, key, iv){
       var key_hash = CryptoJS.MD5(key).toString();
       var key = CryptoJS.enc.Utf8.parse(key_hash);  
@@ -444,8 +463,8 @@ export default {
      onSubmit() {
 
       this.encrypteds = this.getEAES(this.textarea);
-      console.log(this.encrypteds);
-      console.log(this.getDAES( this.encrypteds));
+    //   console.log(this.encrypteds);
+    //   console.log(this.getDAES( this.encrypteds));
 
        this.Message.push({
          user: this.user,

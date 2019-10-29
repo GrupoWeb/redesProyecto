@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\messages;
+use App\messages_s;
 use App\Upload;
 use App\Events\MessageSent;
 use App\Http\Controllers\Crypt;
@@ -109,7 +110,7 @@ class EventosController extends Controller
     }
 
     public function chat($id){
-        return view('Eventos.chat');
+        return view('Eventos.chat'); 
     }
 
     public function chatOnline(){
@@ -147,10 +148,7 @@ class EventosController extends Controller
 
     public function addMessageData(Request $request){
 
-        $var = md5('hola');
-        dd( base64_encode($var));
-    //    dd(Crypt::decryptString($request));
-    //    dd($request);
+    
         $message = auth()->user()->messages()->create([
             'message' => $request->message
         ]);
@@ -166,6 +164,17 @@ class EventosController extends Controller
 
         // $Mensajes->save();
 
+        // broadcast(new MessageSent($Mensajes));
+    }
+    public function addMessageData_s(Request $request){
+
+        $Mensajes = new messages_s;
+
+        $Mensajes->message = $request->message;
+        $Mensajes->user_id = $request->id_user;
+        $Mensajes->save();
+
+        return ['status' => 'success'];
         // broadcast(new MessageSent($Mensajes));
     }
 

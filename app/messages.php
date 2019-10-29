@@ -10,7 +10,7 @@ class messages extends Model
          'message'
     ];
 
-    protected $table = 'messages';
+    protected $table = 'messages_s';
 
     public function user(){
         return $this->belongsTo(User::class);

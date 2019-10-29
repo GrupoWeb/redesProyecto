@@ -341,34 +341,10 @@ export default {
   },
   created(){
     this.getChat();
-    // setInterval(() => {
-    //   this.getChat();
-    // }, 1000);
-    // console.log(this.Messages);
+    setInterval(() => {
+      this.getChat();
+    }, 1000);
     // this.ScrollToEnd();
-    
-            // Echo.join('chat')
-            //     .here(user => {
-            //         this.users = user;
-            //     })
-            //     .joining(user => {
-            //         this.users.push(user);
-            //     })
-            //     .leaving(user => {
-            //         this.users = this.users.filter(u => u.id != user.id);
-            //     })
-            //     .listen('MessageSent',(event) => {
-            //         this.Message.push(event.message);
-                // })
-                // .listenForWhisper('typing', user => {
-                //    this.activeUser = user;
-                //     if(this.typingTimer) {
-                //         clearTimeout(this.typingTimer);
-                //     }
-                //    this.typingTimer = setTimeout(() => {
-                //        this.activeUser = false;
-                //    }, 3000);
-                // })
   },
   methods: {
     // llenado: function() {
@@ -431,10 +407,11 @@ export default {
       //    message: this.textarea 
       //  });
       //  console.log(this.Message)
-      var url = "/addMessages";
+      var url = "/addMessages_s";
        axios
         .post(url, {
-          message: this.textarea
+          message: this.textarea,
+          id_user: this.user.id
         })
         .then(response => {
              

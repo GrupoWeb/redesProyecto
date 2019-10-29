@@ -49,15 +49,19 @@ Route::group(['middleware' => 'cors'], function(){
 
     Route::get('chatSecury','EventosController@salaChat');
     Route::get('chatInsecurity','EventosController@Inseguro');
-    Route::get('getChat','EventosController@getMessages');
+    
 
 
     Route::get('searchEvento/{id}','EventosController@searchEvento');
     Route::get('getDataRes','EventosController@getDataResponsable');
     //--------------------
 
-    //----Mensajes------
+    //----Mensajes seguros------
     Route::post('addMessages','EventosController@addMessageData'); 
+    
+    //----Mensajes no seguro------
+    Route::get('getChat','EventosController@getMessages');
+    Route::post('addMessages_s','EventosController@addMessageData_s'); 
 
     Route::post('upload','UploadController@store');
     Route::post('Uploadfile','EventosController@uploadfile');
