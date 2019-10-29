@@ -341,9 +341,9 @@ export default {
   },
   created(){
     this.getChat();
-    setInterval(() => {
-      this.getChat();
-    }, 1000);
+    // setInterval(() => {
+    //   this.getChat();
+    // }, 1000);
     // console.log(this.Messages);
     // this.ScrollToEnd();
     

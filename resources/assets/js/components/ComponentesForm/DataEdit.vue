@@ -63,276 +63,279 @@
 </template>
 
 <style>
-.el-row {
-  margin-bottom: 20px;
-  margin-left: 20px;
-}
+    .el-row {
+      margin-bottom: 20px;
+      margin-left: 20px;
+    }
 
-.chatbox {
-  width: 100%;
-}
+    .chatbox {
+      width: 100%;
+    }
 
-.userData, .userData_last{
-  font-size: 13px;
-  color:red;
-  display: block;
-}
+    .userData, .userData_last{
+      font-size: 13px;
+      color:red;
+      display: block;
+    }
 
-.userData{
-  margin-bottom: -20px !important;
-}
-.userData_last{
-  text-align: right;
-  margin-bottom: -20px !important;
-}
+    .userData{
+      margin-bottom: -20px !important;
+    }
+    .userData_last{
+      text-align: right;
+      margin-bottom: -20px !important;
+    }
 
-.entrante {
-  list-style: none;
-  background-color: beige;
-  border-radius: 10px;
-  padding-left: 20px;
-  width: 75%;
-}
+    .entrante {
+      list-style: none;
+      background-color: beige;
+      border-radius: 10px;
+      padding-left: 20px;
+      width: 75%;
+    }
 
-.messages {
-  margin-top: 5px;
-  display: flex;
-  flex-direction: column;
-}
-.chat {
-  width: 100%;
-  border: solid 1px #eee;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  height:420px;
+    .messages {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat {
+      width: 100%;
+      border: solid 1px #eee;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      height:420px;
 
-}
+    }
 
-/* Tamaño del scroll */
-/* .chat::-webkit-scrollbar , chat::{
-  width: 8px;
-  height: 8px;
-} */
+    /* Tamaño del scroll */
+    /* .chat::-webkit-scrollbar , chat::{
+      width: 8px;
+      height: 8px;
+    } */
 
- /* Estilos barra (thumb) de scroll */
-/* .chat::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-} */
-/* 
-.chat::-webkit-scrollbar-thumb:active {
-  background-color: #999999;
-}
+    /* Estilos barra (thumb) de scroll */
+    /* .chat::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    } */
+    /* 
+    .chat::-webkit-scrollbar-thumb:active {
+      background-color: #999999;
+    }
 
-.chat::-webkit-scrollbar-thumb:hover {
-  background: #b3b3b3;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-} */
+    .chat::-webkit-scrollbar-thumb:hover {
+      background: #b3b3b3;
+      box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    } */
 
- /* Estilos track de scroll */
-/* .chat::-webkit-scrollbar-track {
-  background: #e1e1e1;
-  border-radius: 4px;
-}
+    /* Estilos track de scroll */
+    /* .chat::-webkit-scrollbar-track {
+      background: #e1e1e1;
+      border-radius: 4px;
+    }
 
-.chat::-webkit-scrollbar-track:hover, 
-.chat::-webkit-scrollbar-track:active {
-  background: #d4d4d4;
-} */
+    .chat::-webkit-scrollbar-track:hover, 
+    .chat::-webkit-scrollbar-track:active {
+      background: #d4d4d4;
+    } */
 
-.message {
-  border-radius: 20px;
-  padding: 4px 15px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  display: inline-block;
-}
+    .message {
+      border-radius: 20px;
+      padding: 4px 15px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      display: inline-block;
+    }
 
-.yours {
-  align-items: flex-start;
-}
+    .yours {
+      align-items: flex-start;
+    }
 
-.yours .message {
-  margin-right: 25%;
-  /* background-color: #eee; */
-  background-color: #ece5dd;
-  position: relative;
-}
+    .yours .message {
+      margin-right: 25%;
+      /* background-color: #eee; */
+      background-color: #ece5dd;
+      position: relative;
+    }
 
-.yours .message.last:before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  bottom: 0;
-  left: -7px;
-  height: 20px;
-  width: 20px;
-  background: #eee;
-  border-bottom-right-radius: 15px;
-}
-.yours .message.last:after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-  left: -10px;
-  width: 10px;
-  height: 20px;
-  background: white;
-  border-bottom-right-radius: 10px;
-}
+    .yours .message.last:before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      bottom: 0;
+      left: -7px;
+      height: 20px;
+      width: 20px;
+      background: #eee;
+      border-bottom-right-radius: 15px;
+    }
+    .yours .message.last:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      left: -10px;
+      width: 10px;
+      height: 20px;
+      background: white;
+      border-bottom-right-radius: 10px;
+    }
 
-.mine {
-  align-items: flex-end;
-}
+    .mine {
+      align-items: flex-end;
+    }
 
-.mine .message {
-  color: #000;
-  margin-left: 25%;
-  background: #dcf8c6;
-  /*background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);*/
-  background-attachment: fixed;
-  position: relative;
-}
+    .mine .message {
+      color: #000;
+      margin-left: 25%;
+      background: #dcf8c6;
+      /*background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);*/
+      background-attachment: fixed;
+      position: relative;
+    }
 
-.mine .message.last:before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  bottom: 0;
-  right: -8px;
-  height: 20px;
-  width: 20px;
-  background: #dcf8c6;
-  /*background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);*/
-  background-attachment: fixed;
-  border-bottom-left-radius: 15px;
-}
+    .mine .message.last:before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      bottom: 0;
+      right: -8px;
+      height: 20px;
+      width: 20px;
+      background: #dcf8c6;
+      /*background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);*/
+      background-attachment: fixed;
+      border-bottom-left-radius: 15px;
+    }
 
-.mine .message.last:after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-  right: -10px;
-  width: 10px;
-  height: 20px;
-  background: white;
-  border-bottom-left-radius: 10px;
-}
+    .mine .message.last:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      right: -10px;
+      width: 10px;
+      height: 20px;
+      background: white;
+      border-bottom-left-radius: 10px;
+    }
 
-.scrollbar {
-margin-left: 30px;
-float: left;
+    .scrollbar {
+    margin-left: 30px;
+    float: left;
 
 
-background: #fff;
-overflow-y: scroll;
-margin-bottom: 25px;
-}
-.force-overflow {
-min-height: 450px;
-}
+    background: #fff;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+    }
+    .force-overflow {
+    min-height: 450px;
+    }
 
-.scrollbar-primary::-webkit-scrollbar {
-width: 12px;
-background-color: #F5F5F5; }
+    .scrollbar-primary::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5; }
 
-.scrollbar-primary::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #4285F4; }
+    .scrollbar-primary::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #4285F4; }
 
-.scrollbar-danger::-webkit-scrollbar-track {
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #F5F5F5;
-border-radius: 10px; }
+    .scrollbar-danger::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px; }
 
-.scrollbar-danger::-webkit-scrollbar {
-width: 12px;
-background-color: #F5F5F5; }
+    .scrollbar-danger::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5; }
 
-.scrollbar-danger::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #ff3547; }
+    .scrollbar-danger::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #ff3547; }
 
-.scrollbar-warning::-webkit-scrollbar-track {
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #F5F5F5;
-border-radius: 10px; }
+    .scrollbar-warning::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px; }
 
-.scrollbar-warning::-webkit-scrollbar {
-width: 12px;
-background-color: #F5F5F5; }
+    .scrollbar-warning::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5; }
 
-.scrollbar-warning::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #FF8800; }
+    .scrollbar-warning::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #FF8800; }
 
-.scrollbar-success::-webkit-scrollbar-track {
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #F5F5F5;
-border-radius: 10px; }
+    .scrollbar-success::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px; }
 
-.scrollbar-success::-webkit-scrollbar {
-width: 12px;
-background-color: #F5F5F5; }
+    .scrollbar-success::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5; }
 
-.scrollbar-success::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #00C851; }
+    .scrollbar-success::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #00C851; }
 
-.scrollbar-info::-webkit-scrollbar-track {
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #F5F5F5;
-border-radius: 10px; }
+    .scrollbar-info::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px; }
 
-.scrollbar-info::-webkit-scrollbar {
-width: 12px;
-background-color: #F5F5F5; }
+    .scrollbar-info::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5; }
 
-.scrollbar-info::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #33b5e5; }
+    .scrollbar-info::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #33b5e5; }
 
-.scrollbar-default::-webkit-scrollbar-track {
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #F5F5F5;
-border-radius: 10px; }
+    .scrollbar-default::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px; }
 
-.scrollbar-default::-webkit-scrollbar {
-width: 12px;
-background-color: #F5F5F5; }
+    .scrollbar-default::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5; }
 
-.scrollbar-default::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #2BBBAD; }
+    .scrollbar-default::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #2BBBAD; }
 
-.scrollbar-secondary::-webkit-scrollbar-track {
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #F5F5F5;
-border-radius: 10px; }
+    .scrollbar-secondary::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px; }
 
-.scrollbar-secondary::-webkit-scrollbar {
-width: 12px;
-background-color: #F5F5F5; }
+    .scrollbar-secondary::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5; }
 
-.scrollbar-secondary::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #aa66cc; }
+    .scrollbar-secondary::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #aa66cc; }
 </style>
 
 <script>
- 
+  import CryptoJS from 'crypto-js';
+  const KEY = 'jj';
+  const IV = '1234567890123456';
+
 export default {
-  
+
   // props: {user:{type:Number},csrf:{type: String}, Message:{type: String}},
   props: ["user","Messages"],
   data() {
@@ -364,7 +367,8 @@ export default {
       id_enviado:1,
       users:[],
       encrypted:"",
-      byte:""
+      byte:"",
+      encrypteds:""
     };
   },
   mounted() {
@@ -401,54 +405,37 @@ export default {
                 // })
   },
   methods: {
-    // llenado: function() {
-    //   axios
-    //     .get("/searchEvento/" + this.id)
-    //     .then(response => {
-    //       this.DataResult = response.data;
-    //     })
-    //     .catch(function(error) {
-    //       // handle error
-    //       console.log(error);
-    //     })
-    //     .finally(function() {
-    //       // always executed
-    //     });
-    // },
-    // getResponsables: function() {
-    //   axios
-    //     .get("/getDataRes")
-    //     .then(response => {
-    //       this.Responsables = response.data;
-    //       //console.log(response.data);
-    //     })
-    //     .catch(function(error) {
-    //       console.log(error);
-    //     });
-    // },
-    
-    // getChat:  function() {
-      
-    //   axios
-    //     .get("/getChat")
-    //     .then(response => {
-    //       this.Message = response.data;
-    //     })
-    //     .catch(function(error) {
-    //       console.log(error);
-    //     });
-    // },
-    // getFile: function(){
-    //   axios.get('/fileList/'+ this.id)
-    //   .then(response =>{
-    //   //console.log("dentro");
-    //       this.fileList = response.data;
-          
-    //   }).catch(function(error) {
-    //       console.log(error);
-    //     });
-    // }
-    // ,
+    getAesString(data, key, iv){
+      var key_hash = CryptoJS.MD5(key).toString();
+      var key = CryptoJS.enc.Utf8.parse(key_hash);  
+      var iv = CryptoJS.enc.Utf8.parse(iv);
+      var encrypted = CryptoJS.AES.encrypt(data, key,
+          {
+              iv: iv,
+              mode: CryptoJS.mode.CBC,
+              padding: CryptoJS.pad.Pkcs7
+          });
+      return encrypted.toString();
+    },
+    getDAesString(encrypted, key, iv){
+        var key_hash = CryptoJS.MD5(key).toString();
+        var key = CryptoJS.enc.Utf8.parse(key_hash);
+        var iv = CryptoJS.enc.Utf8.parse(iv);
+        var decrypted = CryptoJS.AES.decrypt(encrypted, key,
+            {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    },
+    getEAES(data){
+      var encrypted = this.getAesString(data, KEY, IV);
+      return encrypted;
+    },
+    getDAES(data){
+      return this.getDAesString(data, KEY, IV);
+    },
     ScrollToEnd(){
       var container = document.querySelector(".chat");
       var scrollHeight = container.scrollHeight;
@@ -456,21 +443,22 @@ export default {
     },
      onSubmit() {
 
+      this.encrypteds = this.getEAES(this.textarea);
+      console.log(this.encrypteds);
+      console.log(this.getDAES( this.encrypteds));
+
        this.Message.push({
          user: this.user,
-         message: this.textarea 
+         message: this.textarea
        });
-      //  console.log(this.Message)
-      var url = "/addMessages";
+      var url = "/addMessages"; 
        axios
         .post(url, {
-          message: this.textarea
+          // message: this.textarea
+          message: this.encrypteds
         })
         .then(response => {
-             
             this.textarea = '';
-            
-          // console.log("guardado");
         })
         .catch(error => {
           console.log(error.message);

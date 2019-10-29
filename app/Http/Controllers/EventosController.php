@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use App\messages;
 use App\Upload;
 use App\Events\MessageSent;
+use App\Http\Controllers\Crypt;
+
 
 class EventosController extends Controller
 {
@@ -145,6 +147,9 @@ class EventosController extends Controller
 
     public function addMessageData(Request $request){
 
+        $var = md5('hola');
+        dd( base64_encode($var));
+    //    dd(Crypt::decryptString($request));
     //    dd($request);
         $message = auth()->user()->messages()->create([
             'message' => $request->message
